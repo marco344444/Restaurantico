@@ -1,5 +1,6 @@
 package Usuarios;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -9,6 +10,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -19,14 +22,14 @@ import java.util.List;
 
 public class UsuarioXML {
 
-    private String archivoXML;
+    private static String archivoXML;
 
     public UsuarioXML(String archivoXML) {
         this.archivoXML = archivoXML;
     }
 
     // Crea un nuevo archivo XML con la estructura inicial
-    public void crearArchivo() {
+    public static void crearArchivo() {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -43,36 +46,50 @@ public class UsuarioXML {
     }
 
     // Guarda un usuario en el archivo XML
-    public void guardarUsuario(Usuario usuario) {
+    public static void guardarUsuario( Usuario usuario) {
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new File(archivoXML));
+            // Crear un nuevo documento XML
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.newDocument();
 
-            Element rootElement = doc.getDocumentElement();
+            // Crear el elemento raíz
+            Element rootElement = doc.createElement("usuarios");
+            doc.appendChild(rootElement);
 
-            Element elementoUsuario = doc.createElement("usuario");
+            // Crear el elemento usuario
+            Element userElement = doc.createElement("usuario");
+            rootElement.appendChild(userElement);
 
-            Element elementoNombre = doc.createElement("nombre");
-            elementoNombre.setTextContent(usuario.getNombre());
-            elementoUsuario.appendChild(elementoNombre);
+            // Agregar los atributos del usuario
+            Element nombreElement = doc.createElement("nombre");
+            nombreElement.setTextContent(usuario.getNombre());
+            userElement.appendChild(nombreElement);
 
-            Element elementoContrasena = doc.createElement("contrasena");
-            elementoContrasena.setTextContent(usuario.getContrasena());
-            elementoUsuario.appendChild(elementoContrasena);
+            Element contrasenaElement = doc.createElement("contrasena");
+            contrasenaElement.setTextContent(usuario.getContrasena());
+            userElement.appendChild(contrasenaElement);
 
-            Element elementoTipo = doc.createElement("tipo");
-            elementoTipo.setTextContent(usuario.getTipo());
-            elementoUsuario.appendChild(elementoTipo);
+            Element tipoElement = doc.createElement("tipo");
+            tipoElement.setTextContent(usuario.getTipo());
+            userElement.appendChild(tipoElement);
 
-            rootElement.appendChild(elementoUsuario);
+            // Escribir el contenido del documento XML en un archivo
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(archivoXML));
+            transformer.transform(source, result);
 
-            guardarDocumento(doc);
-
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
+            System.out.println("El usuario ha sido guardado en el archivo " + archivoXML);
+        } catch (ParserConfigurationException e) {
+            System.out.println("Ha ocurrido un error al configurar el parser XML");
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al guardar el usuario en el archivo " + archivoXML);
+            System.out.println(e.getMessage());
         }
     }
+
 
     // Actualiza un usuario en el archivo XML
     public void actualizarUsuario(Usuario usuario) {
@@ -127,7 +144,7 @@ public class UsuarioXML {
     }
     // Método privado para
     // Guardar el documento en el archivo XML
-    private void guardarDocumento(Document doc) {
+    private static void guardarDocumento(Document doc) {
         try {
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer transformer = tf.newTransformer();
@@ -163,7 +180,7 @@ public class UsuarioXML {
         return usuario;
     }
     // Obtener todos los usuarios
-    public List<Usuario> obtenerUsuarios() {
+    public static List<Usuario> obtenerUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

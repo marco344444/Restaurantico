@@ -1,13 +1,15 @@
 package Cliente;
 
 public class Cliente {
+        private int id;
         private String nombre;
         private String apellido;
         private String telefono;
         private String tipo;
         private String direccion;
 
-        public Cliente(String nombre, String apellido, String telefono, String tipo, String direccion) {
+        public Cliente(int id, String nombre, String apellido, String telefono, String tipo, String direccion) {
+            this.id = id;
             this.nombre = nombre;
             this.apellido = apellido;
             this.telefono = telefono;
@@ -58,5 +60,12 @@ public class Cliente {
                     '}';
         }
 
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+}
 
