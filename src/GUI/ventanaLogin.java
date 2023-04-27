@@ -43,7 +43,7 @@ public class ventanaLogin extends JFrame {
         textoInicio.setFont(new Font("Serif",Font.BOLD,35));
 
         //correo
-        JLabel correo = new JLabel("Correo");
+        JLabel correo = new JLabel("Usuario");
         correo.setBounds(1000,275,190,45);
         correo.setFont(new Font("Serif",Font.BOLD,25));
 
