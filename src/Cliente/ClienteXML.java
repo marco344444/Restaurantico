@@ -64,7 +64,8 @@ public class ClienteXML{
                     String telefono = element.getElementsByTagName("telefono").item(0).getTextContent();
                     String tipo = element.getElementsByTagName("tipo").item(0).getTextContent();
                     String direccion = element.getElementsByTagName("direccion").item(0).getTextContent();
-                    clientes.add(new Cliente(id, nombres, apellidos, telefono, tipo, direccion));
+                    String ciudad = element.getElementsByTagName("ciudad").item(0).getTextContent();
+                    clientes.add(new Cliente(id, nombres, apellidos, telefono, tipo, direccion, ciudad));
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -113,6 +114,10 @@ public class ClienteXML{
                 // direccion element
                 Element direccionElement = doc.createElement("direccion");
                 direccionElement.appendChild(doc.createTextNode(cliente.getDireccion()));
+                clienteElement.appendChild(direccionElement);
+                // ciudad element
+                Element ciudadElement = doc.createElement("ciudad");
+                ciudadElement.appendChild(doc.createTextNode(cliente.getCiudad()));
                 clienteElement.appendChild(direccionElement);
             }
 

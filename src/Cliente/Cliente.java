@@ -7,14 +7,16 @@ public class Cliente {
         private String telefono;
         private String tipo;
         private String direccion;
+        private String ciudad;
 
-        public Cliente(int id, String nombre, String apellido, String telefono, String tipo, String direccion) {
+        public Cliente(int id, String nombre, String apellido, String telefono, String tipo, String direccion,String Ciudad) {
             this.id = id;
             this.nombre = nombre;
             this.apellido = apellido;
             this.telefono = telefono;
             this.tipo = tipo;
             this.direccion = direccion;
+            this.ciudad= ciudad;
         }
 
         // getters y setters
@@ -57,6 +59,7 @@ public class Cliente {
                     ", telefono='" + telefono + '\'' +
                     ", tipo='" + tipo + '\'' +
                     ", direccion='" + direccion + '\'' +
+                    ", ciudad='" + ciudad + '\'' +
                     '}';
         }
 
@@ -66,6 +69,14 @@ public class Cliente {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 }
 
