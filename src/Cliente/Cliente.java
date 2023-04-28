@@ -1,76 +1,56 @@
 package Cliente;
 
 public class Cliente {
-        private int id;
-        private String nombre;
-        private String apellido;
-        private String telefono;
-        private String tipo;
-        private String direccion;
-        private String ciudad;
+    String telefono;
+    String nombre;
+    String apellidos;
+    String TipoCliente;
+    String ciudad;
+    String direccion;
+    String[] pedidosFrecuentes;
 
-        public Cliente(int id, String nombre, String apellido, String telefono, String tipo, String direccion,String ciudad) {
-            this.id = id;
-            this.nombre = nombre;
-            this.apellido = apellido;
-            this.telefono = telefono;
-            this.tipo = tipo;
-            this.direccion = direccion;
-            this.ciudad= ciudad;
-        }
-
-        // getters y setters
-        public String getNombre() {
-            return nombre;
-        }
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-        public String getApellido() {
-            return apellido;
-        }
-        public void setApellido(String apellido) {
-            this.apellido = apellido;
-        }
-        public String getTelefono() {
-            return telefono;
-        }
-        public void setTelefono(String telefono) {
-            this.telefono = telefono;
-        }
-        public String getTipo() {
-            return tipo;
-        }
-        public void setTipo(String tipo) {
-            this.tipo = tipo;
-        }
-        public String getDireccion() {
-            return direccion;
-        }
-        public void setDireccion(String direccion) {
-            this.direccion = direccion;
-        }
-
-
-
-        @Override
-        public String toString() {
-            return "Cliente{" +
-                    "nombre='" + nombre + '\'' +
-                    ", apellido='" + apellido + '\'' +
-                    ", telefono='" + telefono + '\'' +
-                    ", tipo='" + tipo + '\'' +
-                    ", direccion='" + direccion + '\'' +
-                    ", ciudad='" + ciudad + '\'' +
-                    '}';
-        }
-
-    public int getId() {
-        return id;
+    public Cliente(String telefono, String nombre, String apellidos, String tipoCliente, String ciudad, String direccion, String[] pedidosFrecuentes) {
+        this.telefono = telefono;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        TipoCliente = tipoCliente;
+        this.ciudad = ciudad;
+        this.direccion = direccion;
+        this.pedidosFrecuentes = pedidosFrecuentes;
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellido) {
+        this.apellidos = apellido;
+    }
+
+    public String getTipoCliente() {
+        return TipoCliente;
+    }
+
+    public void setTipoCliente(String tipoCliente) {
+        TipoCliente = tipoCliente;
     }
 
     public String getCiudad() {
@@ -80,5 +60,19 @@ public class Cliente {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
-}
+    public String getDireccion() {
+        return direccion;
+    }
 
+    public void setDireccion(String dirección) {
+        this.direccion = dirección;
+    }
+
+    public String[] getPedidosFrecuentes() {
+        return pedidosFrecuentes;
+    }
+
+    public void setPedidosFrecuentes(String[] pedidosFrecuentes) {
+        this.pedidosFrecuentes = pedidosFrecuentes;
+    }
+}

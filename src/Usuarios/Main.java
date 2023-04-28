@@ -1,40 +1,41 @@
 package Usuarios;
 
-import Cliente.Cliente;
-import Cliente.ClienteXML;
-import Usuarios.Usuario;
-import Usuarios.UsuarioXML;
+import java.util.LinkedList;
+import static org.junit.Assert.assertEquals;
+import java.util.List;
 
-public class Main {
+public class Main{
+
+
+
     public static void main(String[] args) {
-        // Creamos archivo para usuario
 
-        // Creamos archivo para clientes
-        ClienteXML.crearArchivo();
-        // Creamos usuarios y clientes
-        Usuario usuario1 = new Usuario("usuario1", "1234", "admin");
-        Usuario usuario2 = new Usuario("usuario2", "5678", "operador");
+        UsuarioXML metodos = new UsuarioXML("archivoUsuarioXML");
+        metodos.crearArchivo();
 
-        Cliente cliente1 = new Cliente(00,"Juan", "Pérez", "123456789", "particular", "Calle Falsa 123", "Bucaramanga");
-        Cliente cliente2 = new Cliente(01,"María", "García", "987654321", "empresariale", "Avenida Siempreviva 742", "Piedecuesta");
+        Usuario usuario;
+        usuario = new Usuario ("arnol", "123", "operador");
+        metodos.guardarUsuario(usuario);
 
-
+        usuario = new Usuario("fernando", "321", "operador");
+        metodos.guardarUsuario(usuario);
 
 
-        // Guardamos usuarios y clientes en archivos XML
-        UsuarioXML.guardarUsuario(usuario1);
-        UsuarioXML.guardarUsuario(usuario2);
+        metodos.obtenerUsuario("arnol");
+        metodos.obtenerUsuario("fernando");
 
-        ClienteXML.agregarCliente(cliente1);
-        ClienteXML.agregarCliente(cliente2);
+        System.out.println("probar imprimir todos los usuarios");
+        metodos.obtenerUsuarios();
 
+        metodos.eliminarUsuario(usuario);
 
+        metodos.obtenerUsuario("fernando");
 
-        System.out.println("Clientes:");
-        for (Cliente cliente : ClienteXML.leerClientes()) {
-            System.out.println(cliente);
-        }
+        usuario = new Usuario("arnol", "098", "cocinero");
+        metodos.actualizarUsuario(usuario);
+        metodos.obtenerUsuario("arnol");
 
 
     }
+
 }
