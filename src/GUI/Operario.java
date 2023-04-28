@@ -6,7 +6,6 @@ public class Operario extends JFrame{
     private JTextField numeroCelular;
     private JButton buscarButton;
     private JButton registrarClienteButton1;
-    private JButton siguienteButton;
     private JPanel Menu;
 
 
