@@ -15,8 +15,8 @@ public class Main {
         Usuario usuario1 = new Usuario("usuario1", "1234", "admin");
         Usuario usuario2 = new Usuario("usuario2", "5678", "operador");
 
-        Cliente cliente1 = new Cliente(00,"Juan", "Pérez", "123456789", "particular", "Calle Falsa 123");
-        Cliente cliente2 = new Cliente(01,"María", "García", "987654321", "empresariale", "Avenida Siempreviva 742");
+        Cliente cliente1 = new Cliente(00,"Juan", "Pérez", "123456789", "particular", "Calle Falsa 123", "Bucaramanga");
+        Cliente cliente2 = new Cliente(01,"María", "García", "987654321", "empresariale", "Avenida Siempreviva 742", "Piedecuesta");
 
         // Guardamos usuarios y clientes en archivos XML
         UsuarioXML.guardarUsuario(usuario1);
