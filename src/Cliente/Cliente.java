@@ -9,7 +9,7 @@ public class Cliente {
         private String direccion;
         private String ciudad;
 
-        public Cliente(int id, String nombre, String apellido, String telefono, String tipo, String direccion,String Ciudad) {
+        public Cliente(int id, String nombre, String apellido, String telefono, String tipo, String direccion,String ciudad) {
             this.id = id;
             this.nombre = nombre;
             this.apellido = apellido;
@@ -50,6 +50,8 @@ public class Cliente {
         public void setDireccion(String direccion) {
             this.direccion = direccion;
         }
+
+
 
         @Override
         public String toString() {
