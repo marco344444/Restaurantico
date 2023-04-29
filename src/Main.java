@@ -1,4 +1,3 @@
-import GUI.Operario;
 import GUI.ventanaLogin;
 public class Main {
     public static void main(String[] args) {

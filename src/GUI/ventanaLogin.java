@@ -30,7 +30,7 @@ public class ventanaLogin extends JFrame {
         fondo.setBounds(820,87,450,620);
 
         //logo
-        JLabel logo = new JLabel(new ImageIcon("CoolFries/imagenes/pizza.png"));
+        JLabel logo = new JLabel(new ImageIcon("pizza.png"));
         logo.setBounds(10,20,256,256);
 
 

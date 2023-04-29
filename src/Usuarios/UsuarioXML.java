@@ -188,7 +188,7 @@ public class UsuarioXML {
                 String nombre = elementoUsuario.getElementsByTagName("nombre").item(0).getTextContent();
                 String contrasena = elementoUsuario.getElementsByTagName("contrasena").item(0).getTextContent();
                 String tipo = elementoUsuario.getElementsByTagName("tipo").item(0).getTextContent();
-                System.out.println(nombre + "\n" + tipo );
+                System.out.println(nombre + " "+ tipo );
                 Usuario usuario = new Usuario(nombre, contrasena, tipo);
                 usuarios.add(usuario);
             }

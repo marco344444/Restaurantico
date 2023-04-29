@@ -10,13 +10,15 @@ public class CocinaMensaje extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextPane textPane1;
+    private JTextPane textPane2;
     private Producto productito= new Producto(01,"seaFood","este producto es comida de mar", "15 minutos", "70,000");
 
     public CocinaMensaje() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        textPane1.setText(productito.getNombre()+"\n"+productito.getDescripcion());
+        textPane1.setText(productito.getNombre());
+        textPane2.setText(productito.getDescripcion());
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
