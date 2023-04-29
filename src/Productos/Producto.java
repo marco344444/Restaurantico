@@ -9,6 +9,7 @@ public class Producto {
     private String precio;
 
 
+
     public Producto(int id, String nombre, String descripcion, String tiempoCoccion, String precio) {
         this.id = id;
         this.nombre = nombre;
