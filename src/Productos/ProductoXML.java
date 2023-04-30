@@ -60,8 +60,8 @@ public class ProductoXML{
                     int id = Integer.parseInt(element.getAttribute("id"));
                     String nombre = element.getElementsByTagName("nombre").item(0).getTextContent();
                     String descripcion = element.getElementsByTagName("descripcion").item(0).getTextContent();
-                    String tiempoCoccion = element.getElementsByTagName("tiempoCoccion").item(0).getTextContent();
-                    String precio = element.getElementsByTagName("precio").item(0).getTextContent();
+                    int tiempoCoccion = Integer.parseInt(element.getAttribute("tiempoCoccion"));
+                    int precio = Integer.parseInt(element.getAttribute("precio"));
 
                     productos.add(new Producto(id, nombre, descripcion, tiempoCoccion, precio));
                 }
@@ -102,12 +102,12 @@ public class ProductoXML{
 
                 // tiempoCoccion element
                 Element tiempoCoccionElement = doc.createElement("tiempo Coccion");
-                tiempoCoccionElement.appendChild(doc.createTextNode(producto.getTiempoCoccion()));
+                tiempoCoccionElement.appendChild(doc.createTextNode(String.valueOf(producto.getTiempoCoccion())));
                 productoElement.appendChild(tiempoCoccionElement);
 
                 // precio element
                 Element precioElement = doc.createElement("precio");
-                precioElement.appendChild(doc.createTextNode(producto.getPrecio()));
+                precioElement.appendChild(doc.createTextNode(String.valueOf(producto.getPrecio())));
                 productoElement.appendChild(precioElement);
             }
 

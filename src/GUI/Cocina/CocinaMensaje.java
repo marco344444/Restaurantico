@@ -11,7 +11,7 @@ public class CocinaMensaje extends JDialog {
     private JButton buttonCancel;
     private JTextPane textPane1;
     private JTextPane textPane2;
-    private Producto productito= new Producto(01,"seaFood","este producto es comida de mar", "15 minutos", "70,000");
+    private Producto productito= new Producto(01,"seaFood","este producto es comida de mar", 15, 70000);
 
     public CocinaMensaje() {
         setContentPane(contentPane);

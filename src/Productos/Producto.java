@@ -5,17 +5,18 @@ public class Producto {
     private int id;
     private String nombre;
     private String descripcion;
-    private String tiempoCoccion;
-    private String precio;
+    private int tiempoCoccion;
+    private int precio;
 
 
 
-    public Producto(int id, String nombre, String descripcion, String tiempoCoccion, String precio) {
+    public Producto(int id, String nombre, String descripcion, int tiempoCoccion, int precio) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tiempoCoccion = tiempoCoccion;
         this.precio = precio;
+
 
     }
 
@@ -32,16 +33,16 @@ public class Producto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public String getTiempoCoccion() {
+    public int getTiempoCoccion() {
         return tiempoCoccion;
     }
-    public void setTiempoCoccion(String tiempoCoccion) {
+    public void setTiempoCoccion(int tiempoCoccion) {
         this.tiempoCoccion = tiempoCoccion;
     }
-    public String getPrecio() {
+    public int getPrecio() {
         return precio;
     }
-    public void setPrecio(String precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 

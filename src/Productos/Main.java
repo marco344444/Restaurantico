@@ -10,13 +10,13 @@ public class Main {
         // Creamos archivo para producto
         ProductoXML.crearArchivo();
 
-        Producto producto1 = new Producto(00,"Ceviche", "Inventese algo", "15 minutos", "Inventese algo");
-        Producto producto2 = new Producto(01,"Pescado frito", "Inventese algo", "Inventese algo", "Inventese algo");
-        Producto producto3 = new Producto(02,"Pescado sudado", "Inventese algo", "Inventese algo", "Inventese algo");
-        Producto producto4 = new Producto(03,"Casuela", "Inventese algo", "Inventese algo", "Inventese algo");
-        Producto producto5 = new Producto(04,"Cocadas", "Inventese algo", "Inventese algo", "Inventese algo");
-        Producto producto6 = new Producto(05,"Arroz con coco", "Inventese algo", "Inventese algo", "Inventese algo");
-        Producto producto7 = new Producto(06,"Camarones en salsa", "Inventese algo", "Inventese algo", "Inventese algo");
+        Producto producto1 = new Producto(00,"Ceviche", "Inventese algo", 15, 20000);
+        Producto producto2 = new Producto(01,"Pescado frito", "Inventese algo", 15, 20000);
+        Producto producto3 = new Producto(02,"Pescado sudado", "Inventese algo", 15, 20000);
+        Producto producto4 = new Producto(03,"Casuela", "Inventese algo", 15, 20000);
+        Producto producto5 = new Producto(04,"Cocadas", "Inventese algo", 15, 20000);
+        Producto producto6 = new Producto(05,"Arroz con coco", "Inventese algo", 15, 20000);
+        Producto producto7 = new Producto(06,"Camarones en salsa", "Inventese algo", 15, 20000);
 
 
 
