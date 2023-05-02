@@ -21,6 +21,7 @@ import java.util.List;
 
 public class ProductoXML{
     private static final String FILE_NAME = "productos.xml";
+
     public static void crearArchivo() {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();

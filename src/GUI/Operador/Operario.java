@@ -1,6 +1,7 @@
 package GUI.Operador;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Operario extends JFrame{
     private JTextField numeroCelular;

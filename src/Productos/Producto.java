@@ -17,7 +17,6 @@ public class Producto {
         this.tiempoCoccion = tiempoCoccion;
         this.precio = precio;
 
-
     }
 
     // getters y setters

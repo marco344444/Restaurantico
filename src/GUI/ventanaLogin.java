@@ -75,6 +75,7 @@ public class ventanaLogin extends JFrame {
 
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
 
     }//Fin de lo que va dentro del panel
 
