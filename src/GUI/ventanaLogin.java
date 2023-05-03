@@ -67,8 +67,13 @@ public class ventanaLogin extends JFrame {
         contrasena.setBounds(980,420,190,45);
         contrasena.setFont(new Font("Serif",Font.BOLD,25));
 
-        JTextField textoContrasena = new JTextField();
-        textoContrasena.setBounds(893,480,300,45);
+        JPasswordField campoContrasena = new JPasswordField();
+        campoContrasena.setBounds(893, 480, 300, 45);
+        campoContrasena.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boton.doClick();
+            }
+        });
 
         contenedor.add(panel,Integer.valueOf(0));
         contenedor.add(titulo,Integer.valueOf(1));
@@ -78,7 +83,7 @@ public class ventanaLogin extends JFrame {
         contenedor.add(correo,Integer.valueOf(2));
         contenedor.add(contrasena,Integer.valueOf(2));
         contenedor.add(textoCorreo,Integer.valueOf(2));
-        contenedor.add(textoContrasena,Integer.valueOf(2));
+        contenedor.add(campoContrasena,Integer.valueOf(2));
         contenedor.add(textoInicio,Integer.valueOf(2));
 
 
@@ -93,7 +98,7 @@ public class ventanaLogin extends JFrame {
         boton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String nombreUsuario = textoCorreo.getText();
-                    String contrasena = textoContrasena.getText();
+                    String contrasena = campoContrasena.getText();
 
                     Usuario usuario = obtenerUsuario(nombreUsuario, contrasena);
 
