@@ -1,5 +1,8 @@
 package GUI;
 
+import GUI.Administrador.Admin;
+import GUI.Cocina.Cocina;
+import GUI.Operador.Operario;
 import Usuarios.Usuario;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -86,23 +89,43 @@ public class ventanaLogin extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
 
+
         boton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String nombreUsuario = textoCorreo.getText();
-                String contrasena = textoContrasena.getText();
+                public void actionPerformed(ActionEvent e) {
+                    String nombreUsuario = textoCorreo.getText();
+                    String contrasena = textoContrasena.getText();
 
-                Usuario usuario = obtenerUsuario(nombreUsuario, contrasena);
+                    Usuario usuario = obtenerUsuario(nombreUsuario, contrasena);
 
-                if (usuario != null) {
-                    // Inicio de sesión exitoso
-                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-                    // Continuar con la aplicación
-                } else {
-                    // Inicio de sesión fallido
-                    JOptionPane.showMessageDialog(null, "Inicio de sesión fallido");
+                    if (usuario != null) {
+                        // Verificar el tipo de usuario y mostrar la ventana correspondiente
+                        if (usuario.getTipo().equals("administrador")) {
+                            Admin admin = new Admin();
+
+                            admin.setContentPane(admin.Administrador);
+                            admin.setSize(300,200);
+                            admin.setVisible(true);
+                            dispose();
+                        } else if (usuario.getTipo().equals("operador")) {
+                            Operario menu = new Operario();
+                            menu.setContentPane(menu.Menu);
+                            menu.setSize(600,800);
+                            menu.setVisible(true);
+                            dispose(); // Cerrar la ventana de inicio de sesión
+                        } else if (usuario.getTipo().equals("cocina")) {
+                            Cocina cocina = new Cocina();
+                            cocina.setContentPane(cocina.Cocina);
+                            cocina.setSize(800, 600);
+                            cocina.setVisible(true);
+                            dispose(); // Cerrar la ventana de inicio de sesión
+                        }
+                    } else {
+                        // Inicio de sesión fallido
+                        JOptionPane.showMessageDialog(null, "Inicio de sesión fallido");
+                    }
                 }
-            }
-        });
+            });
+
     }//Fin de lo que va dentro del panel
 
     private Usuario obtenerUsuario(String nombreUsuario, String contrasena) {

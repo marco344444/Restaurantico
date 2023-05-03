@@ -7,7 +7,7 @@ public class Operario extends JFrame{
     private JTextField numeroCelular;
     private JButton buscarButton;
     private JButton registrarClienteButton1;
-    private JPanel Menu;
+    public JPanel Menu;
 
 
     public static void main(String[] args) {

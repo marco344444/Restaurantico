@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Admin extends JFrame{
-    private JPanel Administrador;
+    public JPanel Administrador;
     private JButton productosButton;
     private JButton usuariosButton;
     private JLabel Label;

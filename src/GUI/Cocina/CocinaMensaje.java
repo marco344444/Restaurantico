@@ -14,6 +14,7 @@ public class CocinaMensaje extends JDialog {
     private Producto productito= new Producto(01,"seaFood","este producto es comida de mar", 15, 70000);
 
     public CocinaMensaje() {
+        this.setLocationRelativeTo(null);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
