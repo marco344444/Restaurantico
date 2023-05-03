@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+//esta clase maneja todos los productos desde el administrador
 public class AdminProductos extends JDialog {
     private JList list1;
     private JPanel Panel;
