@@ -46,9 +46,9 @@ public class Admin extends JFrame{
 
                 // Mostrar la nueva ventana
                 Usuarios.pack();
-                Usuarios.setSize(200, 300);
+                Usuarios.setSize(500, 600);
                 Usuarios.setVisible(true);
-                setLocationRelativeTo(null);
+
             }
         });
     }

@@ -141,6 +141,41 @@ public class UsuarioXML {
             e.printStackTrace();
         }
     }
+    public void guardarUsuarios(List<Usuario> usuarios) {
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.newDocument();
+
+            Element rootElement = doc.createElement("usuarios");
+            doc.appendChild(rootElement);
+
+            for (Usuario usuario : usuarios) {
+                Element elementoUsuario = doc.createElement("usuario");
+
+                Element elementoNombre = doc.createElement("nombre");
+                elementoNombre.setTextContent(usuario.getNombre());
+                elementoUsuario.appendChild(elementoNombre);
+
+                Element elementoContrasena = doc.createElement("contrasena");
+                elementoContrasena.setTextContent(usuario.getContrasena());
+                elementoUsuario.appendChild(elementoContrasena);
+
+                Element elementoTipo = doc.createElement("tipo");
+                elementoTipo.setTextContent(usuario.getTipo());
+                elementoUsuario.appendChild(elementoTipo);
+
+                rootElement.appendChild(doc.createTextNode("\n"));
+
+                rootElement.appendChild(elementoUsuario);
+            }
+
+            guardarDocumento(doc);
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public Usuario obtenerUsuario(String nombreUsuario, String contrasena) {

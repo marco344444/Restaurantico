@@ -12,7 +12,16 @@ public class AdminProductos extends JDialog {
     public AdminProductos() {
         setContentPane(Panel);
         setModal(true);
-        this.setLocationRelativeTo(null);
+
+        // Crear una instancia del modelo de lista
+        DefaultListModel<String> modeloLista = new DefaultListModel<String>();
+        // Establecer el modelo de lista en la lista
+        list1.setModel(modeloLista);
+
+        // Agregar objetos a la lista
+        modeloLista.addElement("Objeto 1");
+        modeloLista.addElement("Objeto 2");
+        modeloLista.addElement("Objeto 3");
 
         // Agregar el ActionListener al botón "atrasButton"
         atrasButton.addActionListener(new ActionListener() {
@@ -37,3 +46,5 @@ public class AdminProductos extends JDialog {
         System.exit(0);
     }
 }
+
+
