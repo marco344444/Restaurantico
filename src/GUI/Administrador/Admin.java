@@ -26,7 +26,7 @@ public class Admin extends JFrame{
 
                 // Mostrar la nueva ventana
                 productos.pack();
-                productos.setSize(500, 600);
+                productos.setSize(1000, 600);
                 productos.setVisible(true);
 
             }

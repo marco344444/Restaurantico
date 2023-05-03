@@ -14,7 +14,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductoXML {
     private static final String FILE_NAME = "archivoProductoXML";
@@ -107,10 +106,10 @@ public class ProductoXML {
         escribirProductos(productos);
     }
 
-    public static void eliminarProducto(String id) {
+    public static void eliminarProducto(int id) {
         ArrayList<Producto> productos = leerProductos();
         for (int i = 0; i < productos.size(); i++) {
-            if (productos.get(i).getId() == Integer.parseInt(id)) {
+            if (productos.get(i).getId() == id) {
                 productos.remove(i);
                 break;
             }
