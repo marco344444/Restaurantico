@@ -52,37 +52,37 @@ public class PedidoXML {
 
             //escribir en el XML telefono del cliente
             Element elementoTelefono = doc.createElement("Telefono");
-            elementoTelefono.setTextContent(pedido.cliente.getTelefono());
+            elementoTelefono.setTextContent(pedido.getCliente().getTelefono());
             elementoPedido.appendChild(elementoTelefono);
 
             //escribir en el XML nombre del cliente
             Element elementoNombre = doc.createElement("Nombre");
-            elementoNombre.setTextContent(pedido.cliente.getNombre());
+            elementoNombre.setTextContent(pedido.getCliente().getNombre());
             elementoPedido.appendChild(elementoNombre);
 
             //escribir en el XML apellido del cliente
             Element elementoApellidos = doc.createElement("Apellidos");
-            elementoApellidos.setTextContent(pedido.cliente.getApellidos());
+            elementoApellidos.setTextContent(pedido.getCliente().getApellidos());
             elementoPedido.appendChild(elementoApellidos);
 
             //escribir en el XML el tpo cliente
             Element elementoTipoCliente = doc.createElement("Tipodecliente");
-            elementoTipoCliente.setTextContent(pedido.cliente.getTipoCliente());
+            elementoTipoCliente.setTextContent(pedido.getCliente().getTipoCliente());
             elementoPedido.appendChild(elementoTipoCliente);
 
             //escribir en el XML la ciudad del cliente
             Element elementoCiudad = doc.createElement("Ciudad");
-            elementoCiudad.setTextContent(pedido.cliente.getCiudad());
+            elementoCiudad.setTextContent(pedido.getCliente().getCiudad());
             elementoPedido.appendChild(elementoCiudad);
 
             //escribir en el XML la direccion del cliente
             Element elementoDireccion = doc.createElement("Direccion");
-            elementoDireccion.setTextContent(pedido.cliente.getDireccion());
+            elementoDireccion.setTextContent(pedido.getCliente().getDireccion());
             elementoPedido.appendChild(elementoDireccion);
 
             //escribir en el XML el id del producto
             Element elementoId = doc.createElement("Id");
-            elementoId.setTextContent(String.valueOf(pedido.producto.getId()));
+            elementoId.setTextContent(String.valueOf(pedido.getProducto().getId()));
             elementoPedido.appendChild(elementoId);
 
             //escribir en el XML la nombre del cliente
@@ -92,17 +92,17 @@ public class PedidoXML {
 
             //escribir en el XML la descripcion del cliente
             Element elementoDescripcion = doc.createElement("Descripcion");
-            elementoDescripcion.setTextContent(pedido.producto.getDescripcion());
+            elementoDescripcion.setTextContent(pedido.getProducto().getDescripcion());
             elementoPedido.appendChild(elementoDescripcion);
 
             //escribir en el XML la tiempoCoccion del cliente
             Element elementoTiempoCoccion = doc.createElement("Precio");
-            elementoTiempoCoccion.setTextContent(String.valueOf(pedido.producto.getTiempoCoccion()));
+            elementoTiempoCoccion.setTextContent(String.valueOf(pedido.getProducto().getTiempoCoccion()));
             elementoPedido.appendChild(elementoTiempoCoccion);
 
             //escribir en el XML la precio del cliente
             Element elementoPrecio = doc.createElement("Precio");
-            elementoPrecio.setTextContent(String.valueOf(pedido.producto.getPrecio()));
+            elementoPrecio.setTextContent(String.valueOf(pedido.getProducto().getPrecio()));
             elementoPedido.appendChild(elementoPrecio);
 
             rootElement.appendChild(doc.createTextNode("\n"));
@@ -114,7 +114,9 @@ public class PedidoXML {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
+
     }
+
 
 
     // Guardar el documento en el archivo XML
@@ -126,6 +128,86 @@ public class PedidoXML {
             StreamResult result = new StreamResult(new File(archivoPedidoXML));
             transformer.transform(source, result);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void guardarPedido(Pedido pedido) {
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new File(archivoPedidoXML));
+
+            Element rootElement = doc.getDocumentElement();
+
+            Element elementoPedido = doc.createElement("pedido");
+
+            // Escribir en el XML el teléfono del cliente
+            Element elementoTelefono = doc.createElement("Telefono");
+            elementoTelefono.setTextContent(pedido.getCliente().getTelefono());
+            elementoPedido.appendChild(elementoTelefono);
+
+            // Escribir en el XML el nombre del cliente
+            Element elementoNombre = doc.createElement("Nombre");
+            elementoNombre.setTextContent(pedido.getCliente().getNombre());
+            elementoPedido.appendChild(elementoNombre);
+
+            // Escribir en el XML los apellidos del cliente
+            Element elementoApellidos = doc.createElement("Apellidos");
+            elementoApellidos.setTextContent(pedido.getCliente().getApellidos());
+            elementoPedido.appendChild(elementoApellidos);
+
+            // Escribir en el XML el tipo de cliente
+            Element elementoTipoCliente = doc.createElement("Tipodecliente");
+            elementoTipoCliente.setTextContent(pedido.getCliente().getTipoCliente());
+            elementoPedido.appendChild(elementoTipoCliente);
+
+            // Escribir en el XML la ciudad del cliente
+            Element elementoCiudad = doc.createElement("Ciudad");
+            elementoCiudad.setTextContent(pedido.getCliente().getCiudad());
+            elementoPedido.appendChild(elementoCiudad);
+
+            // Escribir en el XML la dirección del cliente
+            Element elementoDireccion = doc.createElement("Direccion");
+            elementoDireccion.setTextContent(pedido.getCliente().getDireccion());
+            elementoPedido.appendChild(elementoDireccion);
+
+            // Escribir en el XML el ID del producto
+            Element elementoId = doc.createElement("Id");
+            elementoId.setTextContent(String.valueOf(pedido.getProducto().getId()));
+            elementoPedido.appendChild(elementoId);
+
+            // Escribir en el XML el nombre del producto
+            Element elementoNombreProducto = doc.createElement("NombreProducto");
+            elementoNombreProducto.setTextContent(pedido.getProducto().getNombre());
+            elementoPedido.appendChild(elementoNombreProducto);
+
+            // Escribir en el XML la descripción del producto
+            Element elementoDescripcion = doc.createElement("Descripcion");
+            elementoDescripcion.setTextContent(pedido.getProducto().getDescripcion());
+            elementoPedido.appendChild(elementoDescripcion);
+
+            // Escribir en el XML el tiempo de cocción del producto
+            Element elementoTiempoCoccion = doc.createElement("TiempoCoccion");
+            elementoTiempoCoccion.setTextContent(String.valueOf(pedido.getProducto().getTiempoCoccion()));
+            elementoPedido.appendChild(elementoTiempoCoccion);
+
+            // Escribir en el XML el precio del producto
+            Element elementoPrecio = doc.createElement("Precio");
+            elementoPrecio.setTextContent(String.valueOf(pedido.getProducto().getPrecio()));
+            elementoPedido.appendChild(elementoPrecio);
+
+            // Escribir en el XML la cantidad del producto
+            Element elementoCantidad = doc.createElement("Cantidad");
+            elementoCantidad.setTextContent(String.valueOf(pedido.getCantidad()));
+            elementoPedido.appendChild(elementoCantidad);
+
+            rootElement.appendChild(doc.createTextNode("\n"));
+
+            rootElement.appendChild(elementoPedido);
+
+            guardarDocumento(doc);
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }

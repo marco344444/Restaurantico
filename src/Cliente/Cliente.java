@@ -6,25 +6,22 @@ public class Cliente {
     String telefono;
     String nombre;
     String apellidos;
-    String TipoCliente;
+    String tipoCliente;
     String ciudad;
     String direccion;
-    String[] pedidosFrecuentes;
 
-    public Cliente(String telefono, String nombre, String apellidos, String tipoCliente, String ciudad, String direccion, List<String> pedidosFrecuentes) {
+    public Cliente(String telefono, String nombre, String apellidos, String tipoCliente, String ciudad, String direccion) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        TipoCliente = tipoCliente;
+        this.tipoCliente = tipoCliente;
         this.ciudad = ciudad;
         this.direccion = direccion;
-        this.pedidosFrecuentes = pedidosFrecuentes.toArray(new String[0]);
     }
 
     public Cliente() {
 
     }
-
 
     public String getTelefono() {
         return telefono;
@@ -51,11 +48,11 @@ public class Cliente {
     }
 
     public String getTipoCliente() {
-        return TipoCliente;
+        return tipoCliente;
     }
 
     public void setTipoCliente(String tipoCliente) {
-        TipoCliente = tipoCliente;
+        this.tipoCliente = tipoCliente;
     }
 
     public String getCiudad() {
@@ -65,19 +62,12 @@ public class Cliente {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String dirección) {
         this.direccion = dirección;
-    }
-
-    public String[] getPedidosFrecuentes() {
-        return pedidosFrecuentes;
-    }
-
-    public void setPedidosFrecuentes(List<String> pedidosFrecuentes) {
-        this.pedidosFrecuentes = pedidosFrecuentes.toArray(new String[0]);
     }
 }

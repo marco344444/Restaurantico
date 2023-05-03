@@ -43,14 +43,6 @@ public class ClienteXML {
                 cliente.setTipoCliente(elementoCliente.getElementsByTagName("Tipodecliente").item(0).getTextContent());
                 cliente.setCiudad(elementoCliente.getElementsByTagName("Ciudad").item(0).getTextContent());
                 cliente.setDireccion(elementoCliente.getElementsByTagName("Direccion").item(0).getTextContent());
-                NodeList nodosPedidos = elementoCliente.getElementsByTagName("Pedido");
-                if (nodosPedidos.getLength() > 0) {
-                    List<String> pedidosFrecuentes = new ArrayList<>();
-                    for (int j = 0; j < nodosPedidos.getLength(); j++) {
-                        pedidosFrecuentes.add(nodosPedidos.item(j).getTextContent());
-                    }
-                    cliente.setPedidosFrecuentes(pedidosFrecuentes);
-                }
                 clientes.add(cliente);
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -122,15 +114,6 @@ public class ClienteXML {
             elementoDireccion.setTextContent(cliente.getDireccion());
             elementoCliente.appendChild(elementoDireccion);
 
-            // Escribir en el XML los pedidos frecuentes
-            Element elementoPedidosFrecuentes = doc.createElement("PedidosFrecuentes");
-            for (String pedidoFrecuente : cliente.getPedidosFrecuentes()) {
-                Element elementoPedidoFrecuente = doc.createElement("Pedido");
-                elementoPedidoFrecuente.setTextContent(pedidoFrecuente);
-                elementoPedidosFrecuentes.appendChild(elementoPedidoFrecuente);
-            }
-            elementoCliente.appendChild(elementoPedidosFrecuentes);
-
             rootElement.appendChild(doc.createTextNode("\n"));
 
             rootElement.appendChild(elementoCliente);
@@ -158,12 +141,7 @@ public class ClienteXML {
                     String tipoCliente = elementoCliente.getElementsByTagName("Tipodecliente").item(0).getTextContent();
                     String ciudad = elementoCliente.getElementsByTagName("Ciudad").item(0).getTextContent();
                     String direccion = elementoCliente.getElementsByTagName("Direccion").item(0).getTextContent();
-                    List<String> pedidosFrecuentes = new ArrayList<>();
-                    NodeList nodosPedidos = elementoCliente.getElementsByTagName("Pedido");
-                    for (int j = 0; j < nodosPedidos.getLength(); j++) {
-                        pedidosFrecuentes.add(nodosPedidos.item(j).getTextContent());
-                    }
-                    return new Cliente(nombre, apellidos, telefonoCliente, direccion, ciudad, tipoCliente, pedidosFrecuentes);
+                    return new Cliente(nombre, apellidos, telefonoCliente, direccion, ciudad, tipoCliente);
                 }
             }
             return null; // si no se encuentra al cliente
@@ -185,6 +163,4 @@ public class ClienteXML {
             e.printStackTrace();
         }
     }
-
-
 }

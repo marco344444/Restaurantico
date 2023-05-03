@@ -5,21 +5,22 @@ import Cliente.Cliente;
 import Productos.Producto;
 
 public class Pedido {
+    private Cliente cliente;
+    private Producto producto;
+    private int cantidad;
 
-    Cliente cliente;
-    Producto producto;
-
-    public Pedido(Cliente cliente, Producto producto) {
+    public Pedido(Cliente cliente, Producto producto, int cantidad) {
         this.cliente = cliente;
         this.producto = producto;
+        this.cantidad = cantidad;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
-        cliente = cliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Producto getProducto() {
@@ -30,4 +31,11 @@ public class Pedido {
         this.producto = producto;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 }

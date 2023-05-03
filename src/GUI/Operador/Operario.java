@@ -1,6 +1,9 @@
 package GUI.Operador;
 
 import Cliente.*;
+import Productos.Producto;
+import pedido.Pedido;
+import pedido.PedidoXML;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,7 +81,7 @@ public class Operario extends JFrame{
                 String[] pedidosFrecuentes = {"pedido 1", "pedido 2", "pedido 3"};
 
                 if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !direccion.isEmpty() && !ciudad.isEmpty() && !tipoCliente.isEmpty()) {
-                    Cliente nuevoCliente = new Cliente(telefono, nombre, apellidos, tipoCliente, ciudad, direccion, Arrays.asList(pedidosFrecuentes));
+                    Cliente nuevoCliente = new Cliente(telefono, nombre, apellidos, tipoCliente, ciudad, direccion);
                     clienteXML.guardarCliente(nuevoCliente);
                     modeloListaClientes.addElement(nuevoCliente);
                 } else {
@@ -90,6 +93,7 @@ public class Operario extends JFrame{
         });
 
         atrasButton.addActionListener(e -> volverAMostrarLista());
+
     }
 
     private void volverAMostrarLista() {

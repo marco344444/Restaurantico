@@ -9,23 +9,14 @@ import java.util.List;
 public class MainPedido {
 
     public static void main(String[] args) {
+        // Crear un objeto Pedido y asignar valores a sus propiedades
+        Cliente cliente = new Cliente("123456789", "Juan", "Pérez", "Particular", "Madrid", "Calle Mayor 1");
+        Producto producto = new Producto(1, "Pizza Margarita", "Pizza con salsa de tomate y mozzarella", 30, 8);
+        Pedido pedido = new Pedido(cliente, producto, 2);
 
-        PedidoXML metodos = new PedidoXML("archivoPedidoXML");
-        metodos.crearArchivo();
-
-        Cliente cliente;
-        Producto producto;
-        Pedido pedido;
-
-        cliente = new Cliente("3222892005", "carlos", "Quintero perez",
-                "premium", "Bucaramanga", "calle 18 27-33", List.of(new String[]{"pizza"}));
-
-        producto = new Producto(00, "Ceviche", "Inventese algo", 15, 20000);
-
-        pedido = new Pedido(cliente, producto);
-
-        metodos.guardarCliente1(pedido);
-
-
+        // Crear un objeto PedidoXML y llamar al método guardarPedido
+        PedidoXML pedidoXML = new PedidoXML("archivoPedidoXML");
+        pedidoXML.crearArchivo();
+        pedidoXML.guardarPedido(pedido);
     }
 }
