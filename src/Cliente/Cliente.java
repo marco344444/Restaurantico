@@ -1,5 +1,7 @@
 package Cliente;
 
+import java.util.List;
+
 public class Cliente {
     String telefono;
     String nombre;
@@ -9,16 +11,19 @@ public class Cliente {
     String direccion;
     String[] pedidosFrecuentes;
 
-    public Cliente(String telefono, String nombre, String apellidos, String tipoCliente, String ciudad, String direccion, String[] pedidosFrecuentes) {
+    public Cliente(String telefono, String nombre, String apellidos, String tipoCliente, String ciudad, String direccion, List<String> pedidosFrecuentes) {
         this.telefono = telefono;
         this.nombre = nombre;
         this.apellidos = apellidos;
         TipoCliente = tipoCliente;
         this.ciudad = ciudad;
         this.direccion = direccion;
-        this.pedidosFrecuentes = pedidosFrecuentes;
+        this.pedidosFrecuentes = pedidosFrecuentes.toArray(new String[0]);
     }
 
+    public Cliente() {
+
+    }
 
 
     public String getTelefono() {
@@ -72,7 +77,7 @@ public class Cliente {
         return pedidosFrecuentes;
     }
 
-    public void setPedidosFrecuentes(String[] pedidosFrecuentes) {
-        this.pedidosFrecuentes = pedidosFrecuentes;
+    public void setPedidosFrecuentes(List<String> pedidosFrecuentes) {
+        this.pedidosFrecuentes = pedidosFrecuentes.toArray(new String[0]);
     }
 }

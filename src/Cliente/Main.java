@@ -1,7 +1,9 @@
 package Cliente;
 
 
-    public class Main {
+import java.util.List;
+
+public class Main {
 
         public static void main(String[] args) {
 
@@ -11,11 +13,11 @@ package Cliente;
 
             Cliente cliente;
             cliente = new Cliente ("3222892002", "carlos", "Quintero perez", "premium",
-                    "Bucaramanga", "calle 18 27-33", new String[]{"pizza"});
+                    "Bucaramanga", "calle 18 27-33", List.of(new String[]{"pizza"}));
             metodos.guardarCliente(cliente);
 
             cliente = new Cliente("3123261018", "luis", "Rodriguez Salazar", "comun",
-                    "Bucaramanga", "calle 19 22-33", new String[]{"hamburgueza"});
+                    "Bucaramanga", "calle 19 22-33", List.of(new String[]{"hamburgueza"}));
             metodos.guardarCliente(cliente);
 
 

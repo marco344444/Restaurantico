@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,6 +15,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteXML {
 
@@ -24,6 +27,44 @@ public class ClienteXML {
     }
 
     // Crea un nuevo archivo XML con la estructura inicial
+    public List<Cliente> obtenerTodosLosClientes() {
+        List<Cliente> clientes = new ArrayList<>();
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new File(archivoClienteXML));
+            NodeList nodosClientes = doc.getElementsByTagName("cliente");
+            for (int i = 0; i < nodosClientes.getLength(); i++) {
+                Element elementoCliente = (Element) nodosClientes.item(i);
+                Cliente cliente = new Cliente();
+                cliente.setTelefono(elementoCliente.getElementsByTagName("Telefono").item(0).getTextContent());
+                cliente.setNombre(elementoCliente.getElementsByTagName("Nombre").item(0).getTextContent());
+                cliente.setApellidos(elementoCliente.getElementsByTagName("Apellidos").item(0).getTextContent());
+                cliente.setTipoCliente(elementoCliente.getElementsByTagName("Tipodecliente").item(0).getTextContent());
+                cliente.setCiudad(elementoCliente.getElementsByTagName("Ciudad").item(0).getTextContent());
+                cliente.setDireccion(elementoCliente.getElementsByTagName("Direccion").item(0).getTextContent());
+                NodeList nodosPedidos = elementoCliente.getElementsByTagName("Pedido");
+                if (nodosPedidos.getLength() > 0) {
+                    List<String> pedidosFrecuentes = new ArrayList<>();
+                    for (int j = 0; j < nodosPedidos.getLength(); j++) {
+                        pedidosFrecuentes.add(nodosPedidos.item(j).getTextContent());
+                    }
+                    cliente.setPedidosFrecuentes(pedidosFrecuentes);
+                }
+                clientes.add(cliente);
+            }
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+        return clientes;
+    }
+    public void cargarClientesEnJList(DefaultListModel<Cliente> modeloJList) {
+        List<Cliente> clientes = obtenerTodosLosClientes();
+        modeloJList.clear();
+        for (Cliente cliente : clientes) {
+            modeloJList.addElement(cliente);
+        }
+    }
     public void crearArchivo() {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -101,7 +142,7 @@ public class ClienteXML {
         }
     }
 
-    public void imprimirClientePorTelefono(String telefono) {
+    public Cliente imprimirClientePorTelefono(String telefono) {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -112,25 +153,23 @@ public class ClienteXML {
                 Element elementoCliente = (Element) nodosClientes.item(i);
                 String telefonoCliente = elementoCliente.getElementsByTagName("Telefono").item(0).getTextContent();
                 if (telefonoCliente.equals(telefono)) {
-                    System.out.println("Cliente encontrado:");
-                    System.out.println("Nombre: " + elementoCliente.getElementsByTagName("Nombre").item(0).getTextContent());
-                    System.out.println("Apellidos: " + elementoCliente.getElementsByTagName("Apellidos").item(0).getTextContent());
-                    System.out.println("Tipo de cliente: " + elementoCliente.getElementsByTagName("Tipodecliente").item(0).getTextContent());
-                    System.out.println("Ciudad: " + elementoCliente.getElementsByTagName("Ciudad").item(0).getTextContent());
-                    System.out.println("Dirección: " + elementoCliente.getElementsByTagName("Direccion").item(0).getTextContent());
+                    String nombre = elementoCliente.getElementsByTagName("Nombre").item(0).getTextContent();
+                    String apellidos = elementoCliente.getElementsByTagName("Apellidos").item(0).getTextContent();
+                    String tipoCliente = elementoCliente.getElementsByTagName("Tipodecliente").item(0).getTextContent();
+                    String ciudad = elementoCliente.getElementsByTagName("Ciudad").item(0).getTextContent();
+                    String direccion = elementoCliente.getElementsByTagName("Direccion").item(0).getTextContent();
+                    List<String> pedidosFrecuentes = new ArrayList<>();
                     NodeList nodosPedidos = elementoCliente.getElementsByTagName("Pedido");
-                    if (nodosPedidos.getLength() > 0) {
-                        System.out.println("Pedidos frecuentes:");
-                        for (int j = 0; j < nodosPedidos.getLength(); j++) {
-                            System.out.println("- " + nodosPedidos.item(j).getTextContent());
-                        }
+                    for (int j = 0; j < nodosPedidos.getLength(); j++) {
+                        pedidosFrecuentes.add(nodosPedidos.item(j).getTextContent());
                     }
-                    return;
+                    return new Cliente(nombre, apellidos, telefonoCliente, direccion, ciudad, tipoCliente, pedidosFrecuentes);
                 }
             }
-            System.out.println("No se encontró ningún cliente con el teléfono " + telefono);
+            return null; // si no se encuentra al cliente
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 

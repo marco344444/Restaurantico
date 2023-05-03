@@ -4,6 +4,8 @@ package pedido;
 import Cliente.Cliente;
 import Productos.Producto;
 
+import java.util.List;
+
 public class MainPedido {
 
     public static void main(String[] args) {
@@ -16,7 +18,7 @@ public class MainPedido {
         Pedido pedido;
 
         cliente = new Cliente("3222892005", "carlos", "Quintero perez",
-                "premium", "Bucaramanga", "calle 18 27-33", new String[]{"pizza"});
+                "premium", "Bucaramanga", "calle 18 27-33", List.of(new String[]{"pizza"}));
 
         producto = new Producto(00, "Ceviche", "Inventese algo", 15, 20000);
 
