@@ -4,8 +4,6 @@ import Cliente.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,56 +40,53 @@ public class Operario extends JFrame{
 
         buscarButton.addActionListener(e -> buscarCliente());
 
-        registrarClienteButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JDialog dialogo = new JDialog();
-                dialogo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                dialogo.setSize(400, 300);
-                dialogo.setLocationRelativeTo(null);
+        registrarClienteButton1.addActionListener(e -> {
+            JDialog dialogo = new JDialog();
+            dialogo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            dialogo.setSize(400, 300);
+            dialogo.setLocationRelativeTo(null);
 
-                JTextField nombreField = new JTextField();
-                JTextField apellidosField = new JTextField();
-                JTextField telefonoField = new JTextField();
-                JTextField direccionField = new JTextField();
-                JTextField ciudadField = new JTextField();
-                JComboBox<String> tipoClienteComboBox = new JComboBox<>(new String[]{"comun", "premium"});
+            JTextField nombreField = new JTextField();
+            JTextField apellidosField = new JTextField();
+            JTextField telefonoField = new JTextField();
+            JTextField direccionField = new JTextField();
+            JTextField ciudadField = new JTextField();
+            JComboBox<String> tipoClienteComboBox = new JComboBox<>(new String[]{"comun", "premium"});
 
-                JPanel panel = new JPanel(new GridLayout(0, 1));
-                panel.add(new JLabel("Nombre:"));
-                panel.add(nombreField);
-                panel.add(new JLabel("Apellidos:"));
-                panel.add(apellidosField);
-                panel.add(new JLabel("Teléfono:"));
-                panel.add(telefonoField);
-                panel.add(new JLabel("Dirección:"));
-                panel.add(direccionField);
-                panel.add(new JLabel("Ciudad:"));
-                panel.add(ciudadField);
-                panel.add(new JLabel("Tipo de cliente:"));
-                panel.add(tipoClienteComboBox);
+            JPanel panel = new JPanel(new GridLayout(0, 1));
+            panel.add(new JLabel("Nombre:"));
+            panel.add(nombreField);
+            panel.add(new JLabel("Apellidos:"));
+            panel.add(apellidosField);
+            panel.add(new JLabel("Teléfono:"));
+            panel.add(telefonoField);
+            panel.add(new JLabel("Dirección:"));
+            panel.add(direccionField);
+            panel.add(new JLabel("Ciudad:"));
+            panel.add(ciudadField);
+            panel.add(new JLabel("Tipo de cliente:"));
+            panel.add(tipoClienteComboBox);
 
-                int resultado = JOptionPane.showConfirmDialog(dialogo, panel, "Registrar cliente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (resultado == JOptionPane.OK_OPTION) {
-                    String nombre = nombreField.getText();
-                    String apellidos = apellidosField.getText();
-                    String telefono = telefonoField.getText();
-                    String direccion = direccionField.getText();
-                    String ciudad = ciudadField.getText();
-                    String tipoCliente = (String) tipoClienteComboBox.getSelectedItem();
-                    String[] pedidosFrecuentes = {"pedido 1", "pedido 2", "pedido 3"};
+            int resultado = JOptionPane.showConfirmDialog(dialogo, panel, "Registrar cliente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (resultado == JOptionPane.OK_OPTION) {
+                String nombre = nombreField.getText();
+                String apellidos = apellidosField.getText();
+                String telefono = telefonoField.getText();
+                String direccion = direccionField.getText();
+                String ciudad = ciudadField.getText();
+                String tipoCliente = (String) tipoClienteComboBox.getSelectedItem();
+                String[] pedidosFrecuentes = {"pedido 1", "pedido 2", "pedido 3"};
 
-                    if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !direccion.isEmpty() && !ciudad.isEmpty() && !tipoCliente.isEmpty()) {
-                        Cliente nuevoCliente = new Cliente(telefono, nombre, apellidos, tipoCliente, ciudad, direccion, Arrays.asList(pedidosFrecuentes));
-                        clienteXML.guardarCliente(nuevoCliente);
-                        modeloListaClientes.addElement(nuevoCliente);
-                    } else {
-                        JOptionPane.showMessageDialog(dialogo, "Por favor complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                if (!nombre.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !direccion.isEmpty() && !ciudad.isEmpty() && !tipoCliente.isEmpty()) {
+                    Cliente nuevoCliente = new Cliente(telefono, nombre, apellidos, tipoCliente, ciudad, direccion, Arrays.asList(pedidosFrecuentes));
+                    clienteXML.guardarCliente(nuevoCliente);
+                    modeloListaClientes.addElement(nuevoCliente);
+                } else {
+                    JOptionPane.showMessageDialog(dialogo, "Por favor complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-                dialogo.dispose();
             }
+
+            dialogo.dispose();
         });
 
         atrasButton.addActionListener(e -> volverAMostrarLista());
@@ -103,6 +98,7 @@ public class Operario extends JFrame{
         for (Cliente cliente : clientes) {
             modeloListaClientes.addElement(cliente);
         }
+        list1.setModel(modeloListaClientes); // Configurar el nuevo modelo de lista en la lista de la interfaz gráfica
     }
 
     private void buscarCliente() {
