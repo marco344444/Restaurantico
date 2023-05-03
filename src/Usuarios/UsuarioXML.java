@@ -180,7 +180,7 @@ public class UsuarioXML {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new File(archivoUsuarioXML));
-
+xasda
             NodeList listaUsuarios = doc.getElementsByTagName("usuario");
 
             for (int i = 0; i < listaUsuarios.getLength(); i++) {
