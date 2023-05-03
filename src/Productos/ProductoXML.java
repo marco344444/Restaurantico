@@ -1,8 +1,5 @@
 package Productos;
 
-
-import Productos.Producto;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -19,8 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoXML{
-    private static final String FILE_NAME = "productos.xml";
+public class ProductoXML {
+    private static final String FILE_NAME = "archivoProductoXML";
 
     public static void crearArchivo() {
         try {
@@ -29,7 +26,7 @@ public class ProductoXML{
             Document doc = docBuilder.newDocument();
 
             // root element
-            Element rootElement = doc.createElement("productos");
+            Element rootElement = doc.createElement("archivoProductoXML");
             doc.appendChild(rootElement);
 
             // write the content into XML file
@@ -64,7 +61,8 @@ public class ProductoXML{
                     int tiempoCoccion = Integer.parseInt(element.getAttribute("tiempoCoccion"));
                     int precio = Integer.parseInt(element.getAttribute("precio"));
 
-                    productos.add(new Producto(id, nombre, descripcion, tiempoCoccion, precio));
+                    Producto producto = new Producto(id, nombre, descripcion, tiempoCoccion, precio);
+                    productos.add(producto);
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -73,7 +71,6 @@ public class ProductoXML{
         return productos;
     }
 
-
     public static void escribirProductos(ArrayList<Producto> productos) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -81,35 +78,13 @@ public class ProductoXML{
             Document doc = docBuilder.newDocument();
 
             // root element
-            Element rootElement = doc.createElement("productos");
+            Element rootElement = doc.createElement("archivoProductoXML");
             doc.appendChild(rootElement);
 
             // productos
             for (Producto producto : productos) {
-                // producto element
-                Element productoElement = doc.createElement("producto");
-                productoElement.setAttribute("id", String.valueOf(producto.getId()));
+                Element productoElement = convertirProductoAXMLElement(producto, doc);
                 rootElement.appendChild(productoElement);
-
-                // nombre element
-                Element nombreElement = doc.createElement("nombre");
-                nombreElement.appendChild(doc.createTextNode(producto.getNombre()));
-                productoElement.appendChild(nombreElement);
-
-                // descripcion element
-                Element descripcionElement = doc.createElement("descripcion");
-                descripcionElement.appendChild(doc.createTextNode(producto.getDescripcion()));
-                productoElement.appendChild(descripcionElement);
-
-                // tiempoCoccion element
-                Element tiempoCoccionElement = doc.createElement("tiempo Coccion");
-                tiempoCoccionElement.appendChild(doc.createTextNode(String.valueOf(producto.getTiempoCoccion())));
-                productoElement.appendChild(tiempoCoccionElement);
-
-                // precio element
-                Element precioElement = doc.createElement("precio");
-                precioElement.appendChild(doc.createTextNode(String.valueOf(producto.getPrecio())));
-                productoElement.appendChild(precioElement);
             }
 
             // write the content into XML file
@@ -126,7 +101,6 @@ public class ProductoXML{
         }
     }
 
-
     public static void agregarProducto(Producto producto) {
         ArrayList<Producto> productos = leerProductos();
         productos.add(producto);
@@ -136,7 +110,7 @@ public class ProductoXML{
     public static void eliminarProducto(String id) {
         ArrayList<Producto> productos = leerProductos();
         for (int i = 0; i < productos.size(); i++) {
-            if (productos.get(i).equals(id)) {
+            if (productos.get(i).getId() == Integer.parseInt(id)) {
                 productos.remove(i);
                 break;
             }
@@ -147,7 +121,7 @@ public class ProductoXML{
     public static Producto buscarProducto(String id) {
         ArrayList<Producto> productos = leerProductos();
         for (Producto producto : productos) {
-            if (producto.equals(id)) {
+            if (producto.getId() == Integer.parseInt(id)) {
                 return producto;
             }
         }
@@ -157,18 +131,29 @@ public class ProductoXML{
     public static void modificarProducto(Producto producto) {
         ArrayList<Producto> productos = leerProductos();
         for (int i = 0; i < productos.size(); i++) {
-            if (productos.get(i).equals(producto.getId())) {
+            if (productos.get(i).getId() == producto.getId()) {
                 productos.set(i, producto);
                 break;
             }
         }
         escribirProductos(productos);
     }
-    public static Producto obtenerProductos() {
-        ArrayList<Producto> productos = leerProductos();
-        int randomIndex = (int) (Math.random() * productos.size());
-        return productos.get(randomIndex);
+
+    private static Element convertirProductoAXMLElement(Producto producto, Document doc) {
+        Element productoElement = doc.createElement("producto");
+        productoElement.setAttribute("id", Integer.toString(producto.getId()));
+
+        Element nombreElement = doc.createElement("nombre");
+        nombreElement.appendChild(doc.createTextNode(producto.getNombre()));
+        productoElement.appendChild(nombreElement);
+
+        Element descripcionElement = doc.createElement("descripcion");
+        descripcionElement.appendChild(doc.createTextNode(producto.getDescripcion()));
+        productoElement.appendChild(descripcionElement);
+
+        productoElement.setAttribute("tiempoCoccion", Integer.toString(producto.getTiempoCoccion()));
+        productoElement.setAttribute("precio", Integer.toString(producto.getPrecio()));
+
+        return productoElement;
     }
-
-
 }

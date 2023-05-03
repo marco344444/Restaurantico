@@ -17,7 +17,7 @@ public class Main {
         Producto producto5 = new Producto(04,"Cocadas", "Inventese algo", 15, 20000);
         Producto producto6 = new Producto(05,"Arroz con coco", "Inventese algo", 15, 20000);
         Producto producto7 = new Producto(06,"Camarones en salsa", "Inventese algo", 15, 20000);
-
+        producto7 = new Producto(07,"comidita", "Inventese algo", 15, 20000);
 
 
 
