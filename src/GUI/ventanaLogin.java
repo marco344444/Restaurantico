@@ -1,7 +1,16 @@
 package GUI;
 
+import Usuarios.Usuario;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
 
 public class ventanaLogin extends JFrame {
     JLayeredPane contenedor = new JLayeredPane();
@@ -77,6 +86,57 @@ public class ventanaLogin extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
 
+        boton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nombreUsuario = textoCorreo.getText();
+                String contrasena = textoContrasena.getText();
+
+                Usuario usuario = obtenerUsuario(nombreUsuario, contrasena);
+
+                if (usuario != null) {
+                    // Inicio de sesión exitoso
+                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+                    // Continuar con la aplicación
+                } else {
+                    // Inicio de sesión fallido
+                    JOptionPane.showMessageDialog(null, "Inicio de sesión fallido");
+                }
+            }
+        });
     }//Fin de lo que va dentro del panel
 
+    private Usuario obtenerUsuario(String nombreUsuario, String contrasena) {
+        Usuario usuario = null;
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new File("archivoUsuarioXML"));
+
+            NodeList listaUsuarios = doc.getElementsByTagName("usuario");
+
+            for (int i = 0; i < listaUsuarios.getLength(); i++) {
+                Element elementoUsuario = (Element) listaUsuarios.item(i);
+                String nombre = elementoUsuario.getElementsByTagName("nombre").item(0).getTextContent();
+
+                if (nombre.equals(nombreUsuario)) {
+                    String contrasenaUsuario = elementoUsuario.getElementsByTagName("contrasena").item(0).getTextContent();
+
+                    if (contrasenaUsuario.equals(contrasena)){
+                        String tipo = elementoUsuario.getElementsByTagName("tipo").item(0).getTextContent();
+                        usuario = new Usuario(nombre, contrasena, tipo);
+                        return usuario;
+                    } else {
+                        System.out.println("Contraseña incorrecta");
+                        return null;
+                    }
+                }
+            }
+
+            System.out.println("Usuario no existe");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return usuario;
+    }
 }//fin de la clase

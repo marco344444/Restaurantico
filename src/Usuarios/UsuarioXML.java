@@ -143,7 +143,7 @@ public class UsuarioXML {
     }
 
 
-    public Usuario obtenerUsuario(String nombreUsuario) {
+    public Usuario obtenerUsuario(String nombreUsuario, String contrasena) {
         Usuario usuario = null;
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -157,11 +157,17 @@ public class UsuarioXML {
                 String nombre = elementoUsuario.getElementsByTagName("nombre").item(0).getTextContent();
 
                 if (nombre.equals(nombreUsuario)) {
-                    String contrasena = elementoUsuario.getElementsByTagName("contrasena").item(0).getTextContent();
-                    String tipo = elementoUsuario.getElementsByTagName("tipo").item(0).getTextContent();
-                    usuario = new Usuario(nombre, contrasena, tipo);
-                    System.out.println(nombre + "\n" + tipo );
-                    return null;
+                    String contrasenaUsuario = elementoUsuario.getElementsByTagName("contrasena").item(0).getTextContent();
+
+                    if (contrasenaUsuario.equals(contrasena)){
+                        String tipo = elementoUsuario.getElementsByTagName("tipo").item(0).getTextContent();
+                        usuario = new Usuario(nombre, contrasena, tipo);
+                        System.out.println(nombre + "\n" + tipo );
+                        return usuario;
+                    } else {
+                        System.out.println("contraseña incorrecta");
+                        return null;
+                    }
                 }
             }
 
