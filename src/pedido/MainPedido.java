@@ -12,7 +12,7 @@ public class MainPedido {
         // Crear un objeto Pedido y asignar valores a sus propiedades
         Cliente cliente = new Cliente("123456789", "Juan", "Pérez", "Estandar", "Bucaramanga", "Calle Mayor 1");
         Producto producto = new Producto(00,"Ceviche", "Inventese algo", 5, 20000);
-        Pedido pedido = new Pedido(00,cliente, producto, 2);
+        Pedido pedido = new Pedido(cliente, producto, 2,00);
 
         // Crear un objeto PedidoXML y llamar al método guardarPedido
         PedidoXML pedidoXML = new PedidoXML("archivoPedidoXML");

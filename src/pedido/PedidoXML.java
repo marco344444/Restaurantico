@@ -50,6 +50,7 @@ public class PedidoXML {
 
             Element elementoPedido = doc.createElement("pedido");
 
+
             //escribir en el XML telefono del cliente
             Element elementoTelefono = doc.createElement("Telefono");
             elementoTelefono.setTextContent(pedido.getCliente().getTelefono());
@@ -140,6 +141,12 @@ public class PedidoXML {
             Element rootElement = doc.getDocumentElement();
 
             Element elementoPedido = doc.createElement("pedido");
+
+            //Xml id pedido
+
+            Element elementoIdP = doc.createElement("idP");
+            elementoIdP.setTextContent(String.valueOf(pedido.getId()));
+            elementoPedido.appendChild(elementoIdP);
 
             // Escribir en el XML el teléfono del cliente
             Element elementoTelefono = doc.createElement("Telefono");
