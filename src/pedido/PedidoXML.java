@@ -148,6 +148,10 @@ public class PedidoXML {
             elementoIdP.setTextContent(String.valueOf(pedido.getId()));
             elementoPedido.appendChild(elementoIdP);
 
+            Element elementoPtotal = doc.createElement("Precio total");
+            elementoPtotal.setTextContent(String.valueOf(pedido.getPrecioTotal()));
+            elementoPedido.appendChild(elementoPtotal);
+
             // Escribir en el XML el teléfono del cliente
             Element elementoTelefono = doc.createElement("Telefono");
             elementoTelefono.setTextContent(pedido.getCliente().getTelefono());

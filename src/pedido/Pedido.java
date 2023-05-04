@@ -11,11 +11,15 @@ public class Pedido {
     private Producto producto;
     private int cantidad;
 
-    public Pedido(Cliente cliente, Producto producto, int cantidad, int id) {
+    private int precioTotal;
+
+    public Pedido(Cliente cliente, Producto producto, int cantidad, int id, int precioTotal) {
+
         this.id = id;
         this.cliente = cliente;
         this.producto = producto;
         this.cantidad = cantidad;
+        this.precioTotal = precioTotal;
     }
 
 
@@ -24,6 +28,12 @@ public class Pedido {
     }
 
     public void setId(int id) {this.id = id;}
+
+    public int getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(int precioTotal) {this.precioTotal = precioTotal;}
 
     public Cliente getCliente() {
         return cliente;

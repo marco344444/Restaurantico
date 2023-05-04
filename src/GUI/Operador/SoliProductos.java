@@ -12,14 +12,14 @@ public class SoliProductos extends JFrame {
     private JPanel arroz;
     private JPanel camarones;
     private JPanel patacones;
-    private JSpinner spinner1;
-    private JSpinner spinner2;
-    private JSpinner spinner3;
-    private JSpinner spinner4;
-    private JSpinner spinner5;
-    private JSpinner spinner6;
-    private JSpinner spinner7;
-    private JSpinner spinner8;
+    private JSpinner Sceviche;
+    private JSpinner Spfrito;
+    private JSpinner Scocadas;
+    private JSpinner Sarroz;
+    private JSpinner Spsudado;
+    private JSpinner Scasuela;
+    private JSpinner Scamarones;
+    private JSpinner Spatacones;
     private JButton SIGUIENTEButton;
     private JButton ATRASButton;
 
