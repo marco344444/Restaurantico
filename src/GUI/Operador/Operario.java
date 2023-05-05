@@ -20,9 +20,11 @@ public class Operario extends JFrame{
     private JButton atrasButton;
 
     private ClienteXML clienteXML = new ClienteXML("archivoClienteXML");
+    private DefaultListModel<Cliente> modeloListaClientes; // Variable de instancia para el modelo de lista
 
     public Operario() {
-        DefaultListModel<Cliente> modeloListaClientes = new DefaultListModel<>();
+        setSize(800, 600);
+        modeloListaClientes = new DefaultListModel<>(); // Inicializar la variable de instancia
         List<Cliente> clientes = clienteXML.obtenerTodosLosClientes();
         for (Cliente cliente : clientes) {
             modeloListaClientes.addElement(cliente);
@@ -93,11 +95,12 @@ public class Operario extends JFrame{
         });
 
         crearPedidoButton.addActionListener(e -> {
-            SoliProductos soliProductos = new SoliProductos();
+            SoliProductos soliProductos = new SoliProductos(this);
             soliProductos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            soliProductos.setSize(400, 300);
+            soliProductos.setSize(600, 800);
             soliProductos.setLocationRelativeTo(null);
             soliProductos.setVisible(true);
+
         });
 
         atrasButton.addActionListener(e -> volverAMostrarLista());
@@ -105,46 +108,36 @@ public class Operario extends JFrame{
     }
 
     private void volverAMostrarLista() {
-        DefaultListModel<Cliente> modeloListaClientes = new DefaultListModel<>();
+        modeloListaClientes.removeAllElements(); // Limpiar el modelo de lista
         List<Cliente> clientes = clienteXML.obtenerTodosLosClientes();
         for (Cliente cliente : clientes) {
-            modeloListaClientes.addElement(cliente);
+            modeloListaClientes.addElement(cliente); // Agregar los clientes al modelo original
         }
-        list1.setModel(modeloListaClientes); // Configurar el nuevo modelo de lista en la lista de la interfaz gráfica
+        list1.setModel(modeloListaClientes); // Establecer el modelo original en el JList
+        setVisible(true);
     }
 
     private void buscarCliente() {
-        String numeroTelefono = numeroCelular.getText();
-        if (!numeroTelefono.isEmpty()) {
-            Cliente clienteEncontrado = clienteXML.imprimirClientePorTelefono(numeroTelefono);
-            if (clienteEncontrado != null) {
+        String telefono = numeroCelular.getText();
+        if (!telefono.isEmpty()) {
+            Cliente cliente = clienteXML.imprimirClientePorTelefono(telefono);
+            if (cliente != null) {
                 DefaultListModel<Cliente> modeloListaClientes = new DefaultListModel<>();
-                modeloListaClientes.addElement(clienteEncontrado);
+                modeloListaClientes.addElement(cliente);
                 list1.setModel(modeloListaClientes);
-                JOptionPane.showMessageDialog(this, "Cliente encontrado");
             } else {
-                DefaultListModel<Cliente> modeloListaClientes = new DefaultListModel<>();
-                List<Cliente> clientes = clienteXML.obtenerTodosLosClientes();
-                for (Cliente cliente : clientes) {
-                    modeloListaClientes.addElement(cliente);
-                }
-                list1.setModel(modeloListaClientes);
-                JOptionPane.showMessageDialog(this, "No se encontró ningún cliente con el teléfono " + numeroTelefono);
+                JOptionPane.showMessageDialog(this, "No se ha encontrado ningún cliente con ese número de teléfono", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            DefaultListModel<Cliente> modeloListaClientes = new DefaultListModel<>();
-            List<Cliente> clientes = clienteXML.obtenerTodosLosClientes();
-            for (Cliente cliente : clientes) {
-                modeloListaClientes.addElement(cliente);
-            }
-            list1.setModel(modeloListaClientes);
+            // No hacemos nada en este caso, simplemente dejamos que el usuario vuelva a la lista de clientes
         }
     }
 
     public static void main(String[] args) {
-        Operario menu = new Operario();
-        menu.setContentPane(menu.Menu);
-        menu.setSize(600,800);
-        menu.setVisible(true);
+        JFrame frame = new JFrame("Operario");
+        frame.setContentPane(new Operario().Menu);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

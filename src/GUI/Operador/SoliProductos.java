@@ -1,6 +1,8 @@
 package GUI.Operador;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SoliProductos extends JFrame {
     private JPanel Sproductos;
@@ -22,19 +24,19 @@ public class SoliProductos extends JFrame {
     private JSpinner Spatacones;
     private JButton SIGUIENTEButton;
     private JButton ATRASButton;
+    private Operario ventanaAnterior;
 
-    public SoliProductos() {
+    public SoliProductos(Operario ventanaAnterior) {
+        this.ventanaAnterior = ventanaAnterior;
         setContentPane(Sproductos);
         setSize(600,800);
         setVisible(true);
-    }
-
-
-
-    public static void main(String[] args) {
-        SoliProductos sproductos = new SoliProductos();
-        sproductos .setContentPane(sproductos .Sproductos);
-        sproductos .setSize(600,800);
-        sproductos .setVisible(true);
+        ATRASButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventanaAnterior.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
