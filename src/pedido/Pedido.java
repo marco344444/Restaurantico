@@ -21,7 +21,14 @@ public class Pedido {
         this.cantidad = cantidad;
         this.precioTotal = precioTotal;
     }
+    public Pedido(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
+    public Pedido(Cliente cliente, Producto producto) {
+        this.cliente = cliente;
+        this.producto = producto;
+    }
 
     public int getId() {
         return id;

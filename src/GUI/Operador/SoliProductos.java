@@ -1,8 +1,15 @@
 package GUI.Operador;
 
+import Productos.Producto;
+import pedido.Pedido;
+import pedido.PedidoXML;
+import Cliente.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SoliProductos extends JFrame {
     private JPanel Sproductos;
@@ -24,6 +31,13 @@ public class SoliProductos extends JFrame {
     private JSpinner Spatacones;
     private JButton SIGUIENTEButton;
     private JButton ATRASButton;
+    private JLabel pescadoSudado;
+    private JLabel Jceviche;
+    private JLabel jcasuela;
+    private JLabel jpescadoFrito;
+    private JLabel jcocadas;
+    private JLabel jpatacones;
+    private JLabel jcamarones;
     private Operario ventanaAnterior;
 
     public SoliProductos(Operario ventanaAnterior) {
@@ -39,4 +53,5 @@ public class SoliProductos extends JFrame {
             }
         });
     }
+
 }

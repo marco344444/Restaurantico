@@ -7,6 +7,7 @@ import pedido.PedidoXML;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +23,12 @@ public class Operario extends JFrame{
     private ClienteXML clienteXML = new ClienteXML("archivoClienteXML");
     private DefaultListModel<Cliente> modeloListaClientes; // Variable de instancia para el modelo de lista
 
+    Cliente clienteSeleccionado;
+
     public Operario() {
+        PedidoXML pedidoXML;
+        pedidoXML = new PedidoXML("archivoPedidoXML");
+
         setSize(800, 600);
         modeloListaClientes = new DefaultListModel<>(); // Inicializar la variable de instancia
         List<Cliente> clientes = clienteXML.obtenerTodosLosClientes();
@@ -105,7 +111,31 @@ public class Operario extends JFrame{
 
         atrasButton.addActionListener(e -> volverAMostrarLista());
 
+        list1.addListSelectionListener(e -> {
+            clienteSeleccionado = (Cliente) list1.getSelectedValue();
+        });
+
+        pedidoXML = new PedidoXML("archivoPedidoXML");
+
+        PedidoXML finalPedidoXML = pedidoXML;
+        crearPedidoButton.addActionListener(e -> {
+            Pedido pedido = new Pedido(clienteSeleccionado);
+            finalPedidoXML.guardarPedido(pedido);
+            
+        });
+
+
+
     }
+    public void onButtonClick(ActionEvent e) {
+        if (e.getActionCommand().equals("Crear pedido")) {
+            Pedido pedido = new Pedido(clienteSeleccionado);
+            PedidoXML pedidoXML = null;
+            pedidoXML.guardarPedido(pedido);
+        }
+    }
+
+
 
     private void volverAMostrarLista() {
         modeloListaClientes.removeAllElements(); // Limpiar el modelo de lista
@@ -132,6 +162,7 @@ public class Operario extends JFrame{
             // No hacemos nada en este caso, simplemente dejamos que el usuario vuelva a la lista de clientes
         }
     }
+
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Operario");

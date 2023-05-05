@@ -132,7 +132,13 @@ public class PedidoXML {
             e.printStackTrace();
         }
     }
+    // Guarda un pedido en el archivo XML
     public void guardarPedido(Pedido pedido) {
+        if (pedido.getCliente() == null) {
+            System.out.println("No tiene cliente seleccionado para crear pedido");
+            return;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -142,15 +148,7 @@ public class PedidoXML {
 
             Element elementoPedido = doc.createElement("pedido");
 
-            //Xml id pedido
-
-            Element elementoIdP = doc.createElement("idP");
-            elementoIdP.setTextContent(String.valueOf(pedido.getId()));
-            elementoPedido.appendChild(elementoIdP);
-
-            Element elementoPrecioTotal = doc.createElement("PrecioTotal");
-            elementoPrecioTotal.setTextContent(String.valueOf(pedido.getPrecioTotal()));
-            elementoPedido.appendChild(elementoPrecioTotal);
+            // ...
 
             // Escribir en el XML el teléfono del cliente
             Element elementoTelefono = doc.createElement("Telefono");
@@ -182,35 +180,7 @@ public class PedidoXML {
             elementoDireccion.setTextContent(pedido.getCliente().getDireccion());
             elementoPedido.appendChild(elementoDireccion);
 
-            // Escribir en el XML el ID del producto
-            Element elementoId = doc.createElement("Id");
-            elementoId.setTextContent(String.valueOf(pedido.getProducto().getId()));
-            elementoPedido.appendChild(elementoId);
-
-            // Escribir en el XML el nombre del producto
-            Element elementoNombreProducto = doc.createElement("NombreProducto");
-            elementoNombreProducto.setTextContent(pedido.getProducto().getNombre());
-            elementoPedido.appendChild(elementoNombreProducto);
-
-            // Escribir en el XML la descripción del producto
-            Element elementoDescripcion = doc.createElement("Descripcion");
-            elementoDescripcion.setTextContent(pedido.getProducto().getDescripcion());
-            elementoPedido.appendChild(elementoDescripcion);
-
-            // Escribir en el XML el tiempo de cocción del producto
-            Element elementoTiempoCoccion = doc.createElement("TiempoCoccion");
-            elementoTiempoCoccion.setTextContent(String.valueOf(pedido.getProducto().getTiempoCoccion()));
-            elementoPedido.appendChild(elementoTiempoCoccion);
-
-            // Escribir en el XML el precio del producto
-            Element elementoPrecio = doc.createElement("Precio");
-            elementoPrecio.setTextContent(String.valueOf(pedido.getProducto().getPrecio()));
-            elementoPedido.appendChild(elementoPrecio);
-
-            // Escribir en el XML la cantidad del producto
-            Element elementoCantidad = doc.createElement("Cantidad");
-            elementoCantidad.setTextContent(String.valueOf(pedido.getCantidad()));
-            elementoPedido.appendChild(elementoCantidad);
+            // ...
 
             rootElement.appendChild(doc.createTextNode("\n"));
 
