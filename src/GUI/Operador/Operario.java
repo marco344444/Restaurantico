@@ -101,41 +101,24 @@ public class Operario extends JFrame{
         });
 
         crearPedidoButton.addActionListener(e -> {
-            SoliProductos soliProductos = new SoliProductos(this);
-            soliProductos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            soliProductos.setSize(600, 800);
-            soliProductos.setLocationRelativeTo(null);
-            soliProductos.setVisible(true);
+            Pedido pedido = new Pedido(clienteSeleccionado);
+            pedidoXML.guardarPedido(pedido);
 
+            JOptionPane.showMessageDialog(this, "Pedido creado con éxito");
+
+            MenuPedido menuPedido = new MenuPedido();
+            menuPedido.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            menuPedido.setLocationRelativeTo(null);
+            menuPedido.setVisible(true);
         });
+
 
         atrasButton.addActionListener(e -> volverAMostrarLista());
 
         list1.addListSelectionListener(e -> {
             clienteSeleccionado = (Cliente) list1.getSelectedValue();
         });
-
-        pedidoXML = new PedidoXML("archivoPedidoXML");
-
-        PedidoXML finalPedidoXML = pedidoXML;
-        crearPedidoButton.addActionListener(e -> {
-            Pedido pedido = new Pedido(clienteSeleccionado);
-            finalPedidoXML.guardarPedido(pedido);
-            
-        });
-
-
-
     }
-    public void onButtonClick(ActionEvent e) {
-        if (e.getActionCommand().equals("Crear pedido")) {
-            Pedido pedido = new Pedido(clienteSeleccionado);
-            PedidoXML pedidoXML = null;
-            pedidoXML.guardarPedido(pedido);
-        }
-    }
-
-
 
     private void volverAMostrarLista() {
         modeloListaClientes.removeAllElements(); // Limpiar el modelo de lista
@@ -162,7 +145,6 @@ public class Operario extends JFrame{
             // No hacemos nada en este caso, simplemente dejamos que el usuario vuelva a la lista de clientes
         }
     }
-
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Operario");

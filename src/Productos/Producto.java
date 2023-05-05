@@ -10,15 +10,28 @@ public class Producto {
 
 
 
+    public Producto() {
+        this.id = 0;
+        this.nombre = "";
+        this.descripcion = "";
+        this.tiempoCoccion = 0;
+        this.precio = 0;
+
+    }
+
     public Producto(int id, String nombre, String descripcion, int tiempoCoccion, int precio) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tiempoCoccion = tiempoCoccion;
         this.precio = precio;
-
     }
 
+    public Producto(int id, String nombre, int precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+    }
 
     // getters y setters
     public String getNombre() {

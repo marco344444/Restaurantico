@@ -1,8 +1,10 @@
 package pedido;
-;
+import Cliente.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import Productos.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,83 +42,7 @@ public class PedidoXML {
     }
 
     // Guarda un pedido en el archivo XML
-    public void guardarCliente1(Pedido pedido) {
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new File(archivoPedidoXML));
 
-            Element rootElement = doc.getDocumentElement();
-
-            Element elementoPedido = doc.createElement("pedido");
-
-
-            //escribir en el XML telefono del cliente
-            Element elementoTelefono = doc.createElement("Telefono");
-            elementoTelefono.setTextContent(pedido.getCliente().getTelefono());
-            elementoPedido.appendChild(elementoTelefono);
-
-            //escribir en el XML nombre del cliente
-            Element elementoNombre = doc.createElement("Nombre");
-            elementoNombre.setTextContent(pedido.getCliente().getNombre());
-            elementoPedido.appendChild(elementoNombre);
-
-            //escribir en el XML apellido del cliente
-            Element elementoApellidos = doc.createElement("Apellidos");
-            elementoApellidos.setTextContent(pedido.getCliente().getApellidos());
-            elementoPedido.appendChild(elementoApellidos);
-
-            //escribir en el XML el tpo cliente
-            Element elementoTipoCliente = doc.createElement("Tipodecliente");
-            elementoTipoCliente.setTextContent(pedido.getCliente().getTipoCliente());
-            elementoPedido.appendChild(elementoTipoCliente);
-
-            //escribir en el XML la ciudad del cliente
-            Element elementoCiudad = doc.createElement("Ciudad");
-            elementoCiudad.setTextContent(pedido.getCliente().getCiudad());
-            elementoPedido.appendChild(elementoCiudad);
-
-            //escribir en el XML la direccion del cliente
-            Element elementoDireccion = doc.createElement("Direccion");
-            elementoDireccion.setTextContent(pedido.getCliente().getDireccion());
-            elementoPedido.appendChild(elementoDireccion);
-
-            //escribir en el XML el id del producto
-            Element elementoId = doc.createElement("Id");
-            elementoId.setTextContent(String.valueOf(pedido.getProducto().getId()));
-            elementoPedido.appendChild(elementoId);
-
-            //escribir en el XML la nombre del cliente
-            Element elementoNombreProducto = doc.createElement("NombreProducto");
-            elementoNombreProducto.setTextContent(pedido.getProducto().getNombre());
-            elementoPedido.appendChild(elementoNombreProducto);
-
-            //escribir en el XML la descripcion del cliente
-            Element elementoDescripcion = doc.createElement("Descripcion");
-            elementoDescripcion.setTextContent(pedido.getProducto().getDescripcion());
-            elementoPedido.appendChild(elementoDescripcion);
-
-            //escribir en el XML la tiempoCoccion del cliente
-            Element elementoTiempoCoccion = doc.createElement("Precio");
-            elementoTiempoCoccion.setTextContent(String.valueOf(pedido.getProducto().getTiempoCoccion()));
-            elementoPedido.appendChild(elementoTiempoCoccion);
-
-            //escribir en el XML la precio del cliente
-            Element elementoPrecio = doc.createElement("Precio");
-            elementoPrecio.setTextContent(String.valueOf(pedido.getProducto().getPrecio()));
-            elementoPedido.appendChild(elementoPrecio);
-
-            rootElement.appendChild(doc.createTextNode("\n"));
-
-            rootElement.appendChild(elementoPedido);
-
-            guardarDocumento(doc);
-
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
 
@@ -192,6 +118,81 @@ public class PedidoXML {
             e.printStackTrace();
         }
     }
+    public String getUltimoTelefonoRegistrado() {
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new File(archivoPedidoXML));
+            NodeList nodosPedidos = doc.getElementsByTagName("pedido");
+            int cantidadPedidos = nodosPedidos.getLength();
+            if (cantidadPedidos == 0) {
+                System.out.println("No hay pedidos registrados en el archivo.");
+                return null;
+            }
+            Element elementoUltimoPedido = (Element) nodosPedidos.item(cantidadPedidos - 1);
+            return elementoUltimoPedido.getElementsByTagName("Telefono").item(0).getTextContent();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public void agregarProducto(Producto producto) {
+        try {
+            Pedido pedido= new Pedido();
+            String ultimoTelefonoRegistrado = getUltimoTelefonoRegistrado();
+            if (ultimoTelefonoRegistrado == null) {
+                System.out.println("No se pudo obtener el último teléfono registrado.");
+                return;
+            }
+            pedido.setCliente(new Cliente(ultimoTelefonoRegistrado, "", "")); // Solo se necesita el teléfono para buscar el pedido correspondiente
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new File(archivoPedidoXML));
+
+            Element rootElement = doc.getDocumentElement();
+
+            // Buscar el elemento pedido correspondiente
+            Element elementoPedido = null;
+            for (int i = 0; i < rootElement.getElementsByTagName("pedido").getLength(); i++) {
+                Element tempElementoPedido = (Element) rootElement.getElementsByTagName("pedido").item(i);
+                if (tempElementoPedido.getElementsByTagName("Telefono").item(0).getTextContent().equals(pedido.getCliente().getTelefono())) {
+                    elementoPedido = tempElementoPedido;
+                    break;
+                }
+            }
+
+            if (elementoPedido == null) {
+                System.out.println("No se encontró el pedido correspondiente");
+                return;
+            }
+
+            // Crear el elemento producto
+            Element elementoProducto = doc.createElement("producto");
+
+            // Agregar los atributos del producto
+            elementoProducto.setAttribute("id", String.valueOf(producto.getId()));
+            elementoProducto.setAttribute("nombre", producto.getNombre());
+            elementoProducto.setAttribute("precio", String.valueOf(producto.getPrecio()));
+            elementoProducto.setAttribute("cantidad", String.valueOf(pedido.getCantidad())); // Usamos el método getCantidad de pedido
+
+            // Agregar el elemento producto al elemento pedido
+            elementoPedido.appendChild(doc.createTextNode("\n    "));
+            elementoPedido.appendChild(elementoProducto);
+            elementoPedido.appendChild(doc.createTextNode("\n"));
+
+            guardarDocumento(doc);
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
 
 }
