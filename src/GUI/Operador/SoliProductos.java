@@ -23,6 +23,12 @@ public class SoliProductos extends JFrame {
     private JButton SIGUIENTEButton;
     private JButton ATRASButton;
 
+    public SoliProductos() {
+        setContentPane(Sproductos);
+        setSize(600,800);
+        setVisible(true);
+    }
+
 
 
     public static void main(String[] args) {

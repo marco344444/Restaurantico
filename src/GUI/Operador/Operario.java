@@ -92,6 +92,14 @@ public class Operario extends JFrame{
             dialogo.dispose();
         });
 
+        crearPedidoButton.addActionListener(e -> {
+            SoliProductos soliProductos = new SoliProductos();
+            soliProductos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            soliProductos.setSize(400, 300);
+            soliProductos.setLocationRelativeTo(null);
+            soliProductos.setVisible(true);
+        });
+
         atrasButton.addActionListener(e -> volverAMostrarLista());
 
     }
